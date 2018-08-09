@@ -10,7 +10,7 @@ package reflection;
  * @author JAVA
  *
  */
-public class Demo1 {
+public class Demo1_newInstance {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		/*
 		 * 传统编写代码时在编码阶段确定类,以及实例化对象并调用方法
@@ -34,7 +34,7 @@ public class Demo1 {
 		 * 3:使用类加载器加载
 		 */
 		String name = "reflection.Person";
-		Class cls = Class.forName(name);
+		Class<?> cls = Class.forName(name);
 		Person obj = (Person) cls.newInstance();
 		obj.sayHello();
 	}

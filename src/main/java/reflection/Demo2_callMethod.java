@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author JAVA
  *
  */
-public class Demo2 {
+public class Demo2_callMethod {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("请输入要实例化的类:");
@@ -18,7 +18,7 @@ public class Demo2 {
 		System.out.println("请输入要调用的方法:");
 		String methodName = scan.nextLine();
 		
-		Class cls = Class.forName(className);
+		Class<?> cls = Class.forName(className);
 		//实例化
 		Object p = cls.newInstance();
 		/*
@@ -32,5 +32,7 @@ public class Demo2 {
 		 */
 		Method method = cls.getDeclaredMethod(methodName, null);	
 		method.invoke(p, null);
+		
+		scan.close();
 	}
 }

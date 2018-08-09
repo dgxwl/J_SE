@@ -1,6 +1,11 @@
 package reflection;
 
 public class Person {
+	
+	public static final Integer HEIGHT = 170;
+	
+	private int weight = 60;
+	
 	public void sayHello() {
 		System.out.println("大家好!");
 	}

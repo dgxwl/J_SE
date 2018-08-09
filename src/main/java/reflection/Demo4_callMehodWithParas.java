@@ -7,9 +7,9 @@ import java.lang.reflect.Method;
  * @author JAVA
  *
  */
-public class Demo4 {
+public class Demo4_callMehodWithParas {
 	public static void main(String[] args) throws Exception {
-		Class cls = Class.forName("reflection.Person");
+		Class<?> cls = Class.forName("reflection.Person");
 		Object obj = cls.newInstance();
 		
 		//获取有参数的sayHello()方法

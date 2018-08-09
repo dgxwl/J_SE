@@ -8,12 +8,12 @@ import java.lang.reflect.Method;
  * @author JAVA
  *
  */
-public class Demo3 {
+public class Demo3_callPrivateMethod {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 //		Person p = new Person();
 //		p.say();  //传统方式是无法再Person外部访问私有方法的
 		
-		Class cls = Class.forName("reflection.Person");
+		Class<?> cls = Class.forName("reflection.Person");
 		Object obj = cls.newInstance();
 		Method method = cls.getDeclaredMethod("say", null);
 		/*
