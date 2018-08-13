@@ -15,13 +15,14 @@ import java.util.Queue;
 public class QueueDemo {
 	public static void main(String[] args) {
 		/*
-		 * LinkedList是使用链表结构实现的List，但java
-		 * 还让其实现了Queue接口，因为链表的特性体现在可以
-		 * 存一组元素，并且首尾增删元素效率高，这正好也满足了
-		 * 队列的特点.
+		 * LinkedList是使用链表结构实现的List,但java还让其实现了Deque接口(继承Queue接口),
+		 * 因为链表的特性体现在可以存一组元素，并且首尾增删元素效率高，这正好也满足了队列的特点.
 		 */
 		Queue<String> queue = new LinkedList<String>();
-		//入队操作，从队尾追加元素
+		/*
+		 * boolean offer(String e)
+		 * 入队操作，从队尾追加元素
+		 */
 		queue.offer("one");
 		queue.offer("two");
 		queue.offer("three");
