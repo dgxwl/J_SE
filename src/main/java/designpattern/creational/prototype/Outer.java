@@ -32,9 +32,7 @@ public class Outer implements Serializable {
 			ObjectInputStream ois = new ObjectInputStream(bis);
 			outer = (Outer) ois.readObject();
 			
-			bos.close();
 			oos.close();
-			bis.close();
 			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();

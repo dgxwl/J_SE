@@ -45,7 +45,7 @@ public class Client5 {
 		 * 服务端没有响应会抛出异常。
 		 */
 		socket = new Socket(
-			"176.148.2.9",  //服务端的IP地址			176.148.2.249
+			"localhost",  //服务端的IP地址			176.148.2.249
 			 8088);  //服务端的端口号
 		System.out.println("已连接服务端!");
 	}
@@ -70,7 +70,7 @@ public class Client5 {
 		 * 写出的数据会发送至远端计算机，这里相当于
 		 * 发送给了服务端。
 		 */
-		try {
+		try (Scanner scan = new Scanner(System.in);) {
 			/*
 			 * 如果只发送字符串数据，也可以使用字符流来完成.
 			 */
@@ -78,7 +78,6 @@ public class Client5 {
 			OutputStreamWriter osw = new OutputStreamWriter(out, "utf-8");
 			PrintWriter pw = new PrintWriter(osw, true);
 			
-			Scanner scan = new Scanner(System.in);
 			while (true) {
 				String line = scan.nextLine();
 				pw.println(line);
