@@ -17,7 +17,7 @@ public class JsonToMapDemo {
 		
 		try {
 			//使用mapper.readValue()将json字符串转换为map
-			Map map = mapper.readValue(json, Map.class);
+			Map<?, ?> map = mapper.readValue(json, Map.class);
 			System.out.println(map);
 		} catch (IOException e) {
 			e.printStackTrace();
