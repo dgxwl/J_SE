@@ -1,6 +1,5 @@
 package json;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,7 +14,7 @@ public class JsonToListDemo {
 		String json = "[\"1101\", \"1102\", \"1103\", \"1104\"]";
 		
 		try {
-			List<?> list = mapper.readValue(json, ArrayList.class);
+			List<?> list = mapper.readValue(json, List.class);
 			System.out.println(list);
 		} catch (Exception e) {
 			e.printStackTrace();

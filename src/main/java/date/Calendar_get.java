@@ -43,7 +43,7 @@ public class Calendar_get {
 		System.out.println("今天是今年的第" + doy + "天");
 		
 		//获取周几
-		int dow = calendar.get(calendar.DAY_OF_WEEK)-1;
+		int dow = calendar.get(Calendar.DAY_OF_WEEK)-1;
 		String[] data = {"日", "一", "二", "三", "四", "五", "六"};
 		System.out.println("今天是周" + data[dow]);
 		
