@@ -78,4 +78,37 @@ public class StringUtils {
     public static String deletePrefix(String val, String prefix) {
     	return val.substring(prefix.length());
     }
+    
+    /**
+	 * 首字母变大写
+	 * @return 首字母大写的字符串
+	 */
+    public static String toTitleCase(String str) {
+		char[] chs = str.toCharArray();
+		if (chs[0] >= 97 && chs[0] <= 122) {
+			chs[0] -= 32;
+		}
+		return String.valueOf(chs);
+	}
+    
+    /**
+     * 下划线命名转驼峰命名
+     * @param str
+     * @return
+     */
+    public static String underscoreCaseToCamelCase(String str) {
+    	String[] data = str.split("[_]+");
+		if (data.length > 1) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(data[0]);
+			for (int i = 1; i < data.length; i++) {
+				data[i] = toTitleCase(data[i]);
+				sb.append(data[i]);
+			}
+			return sb.toString();
+		} else {
+			return str;
+		}
+    }
+    
 }
