@@ -37,7 +37,9 @@ public class ThreadPoolDemo {
 			System.out.println("将任务" + i + "交给了线程池");
 		}
 		
+		//所有任务执行完时关闭线程池
 		threadPool.shutdown();
+		//执行此方法立即关闭线程池
 //		threadPool.shutdownNow();
 		System.out.println("关闭了线程池.");
 	}

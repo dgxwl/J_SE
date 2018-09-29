@@ -19,7 +19,6 @@ public class Test {
 
 	/**
 	 * 将给定的File所表示的文件或目录删除
-	 * 老师的
 	 * @param f
 	 */
 	public static void delete(File f) {

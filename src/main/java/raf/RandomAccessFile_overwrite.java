@@ -24,7 +24,7 @@ public class RandomAccessFile_overwrite {
 		 * 文件最后
 		 */
 		raf.seek(raf.length());
-		raf.write("漫天星光指引我而闪烁.".getBytes("UTF-8"));
+		raf.write("满天星光只因我而闪烁.".getBytes("UTF-8"));
 		System.out.println("写出完毕!");
 		
 		raf.close();

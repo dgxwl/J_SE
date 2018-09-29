@@ -49,6 +49,7 @@ public class Client3 {
 	 * @throws IOException 
 	 */
 	public void start() {
+		Scanner scan = new Scanner(System.in);
 		/*
 		 * 客户端向服务端发送数据
 		 * 
@@ -78,7 +79,6 @@ public class Client3 {
 			InputStreamReader isr = new InputStreamReader(in, "utf-8");
 			BufferedReader br = new BufferedReader(isr);
 			
-			Scanner scan = new Scanner(System.in);
 			String message = null;
 			while (true) {
 				String line = scan.nextLine();
@@ -90,6 +90,8 @@ public class Client3 {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			scan.close();
 		}
 	}
 	

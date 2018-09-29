@@ -48,6 +48,7 @@ public class Client {
 	 * @throws IOException 
 	 */
 	public void start() {
+		Scanner scan = new Scanner(System.in);
 		/*
 		 * 客户端向服务端发送数据
 		 * 
@@ -74,7 +75,6 @@ public class Client {
 			BufferedReader br = new BufferedReader(isr);
 			
 			PrintWriter pw = new PrintWriter(osw, true);
-			Scanner scan = new Scanner(System.in);
 			String message = null;
 			while (true) {
 				pw.println(scan.nextLine());
@@ -86,6 +86,8 @@ public class Client {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			scan.close();
 		}
 		
 	}

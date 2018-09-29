@@ -34,6 +34,8 @@ public class Test {
 //			sum += Integer.parseInt(data[i]);
 //		}
 //		System.out.println(str + "=" + sum);
+		
+		scan.close();
 	}
 
 }

@@ -52,6 +52,8 @@ public class StringHomework {
 		str = "123abc456def789ghi";
 		str = str.replaceAll("[a-z]+", "#char#");
 		System.out.println(str);
+		
+		scan.close();
 	}
 
 }

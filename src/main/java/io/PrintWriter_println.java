@@ -36,7 +36,7 @@ public class PrintWriter_println {
 		);
 		
 		pw.println("让我再看你一遍，从南到北.");
-		pw.print("像是北五环路蒙住的双眼.");
+		pw.print("像是被五环路蒙住的双眼.");
 		
 		System.out.println("写出完毕!");
 		pw.close();

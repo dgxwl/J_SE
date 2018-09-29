@@ -49,5 +49,7 @@ public class Thread_sleep {
 //				e.printStackTrace();
 //			}
 //		}
+		
+		scan.close();
 	}
 }

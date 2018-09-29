@@ -60,7 +60,7 @@ public class Client4 {
 		Thread t = new Thread(handler);
 		t.start();
 		
-		
+		Scanner scan = new Scanner(System.in);
 		/*
 		 * 客户端向服务端发送数据
 		 * 
@@ -78,7 +78,6 @@ public class Client4 {
 			OutputStreamWriter osw = new OutputStreamWriter(out, "utf-8");
 			PrintWriter pw = new PrintWriter(osw, true);
 			
-			Scanner scan = new Scanner(System.in);
 			while (true) {
 				String line = scan.nextLine();
 				pw.println(line);
@@ -87,6 +86,8 @@ public class Client4 {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			scan.close();
 		}
 	}
 	

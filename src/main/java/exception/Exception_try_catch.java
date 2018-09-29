@@ -34,11 +34,10 @@ public class Exception_try_catch {
 			System.out.println("字符串下标越界了!");
 		} catch (Exception e) {
 			/*
-			 * 应当有一个好习惯，在最后一个catch中捕获
-			 * Exception，防止代码出现了一个未知的异常导致
-			 * 中断.
+			 * 应当有一个好习惯，在最后一个catch中捕获Exception，
+			 * 防止代码出现了一个未知的异常导致中断.
 			 */
-			System.out.println("反正就是出了个错!");
+			System.out.println("反正就是出错了!");
 		}
 		
 		System.out.println("程序结束了");

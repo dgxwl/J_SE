@@ -7,7 +7,7 @@ import java.io.OutputStream;
 public class OutputStreamDemo01 {
 
 	public static void main(String[] args) throws IOException {
-		String content = "Hello jsd1710";
+		String content = "Aspirations of Libertine";
 		//1.构建输出流对象
 		OutputStream out;
 		//当FileOutputStream对应的文件不存在会自动创建

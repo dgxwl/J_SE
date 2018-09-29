@@ -87,6 +87,7 @@ public class Test3 {
 		System.out.println("指针位置：" + raf.getFilePointer());
 		
 		raf.close();
+		scan.close();
 	}
 
 }

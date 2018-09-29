@@ -28,7 +28,7 @@ public class LambdaForEachTraverseMapDemo {
 				//break;
 				return ;
 			}
-			System.out.println("不爱" + kSubject);
+			System.out.println("无感: " + kSubject);
 		});
 	}
 }

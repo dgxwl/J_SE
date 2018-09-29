@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * List提供了一对重载的add，remove方法
+ * List提供了一对重载的add(), remove()方法
  * @author JAVA
  *
  */
