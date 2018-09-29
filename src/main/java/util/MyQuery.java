@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class MyQuery {
 	private String orderfield;
 	private String ordertype;
-	private int limit;
-	private int page;
+	private int limit = 10;
+	private int page = 1;
 
 	public MyQuery() {
 	}
@@ -35,7 +35,7 @@ public class MyQuery {
 	}
 
 	public int getLimit() {
-		return limit == 0 ? 10 : limit;
+		return limit;
 	}
 
 	public void setLimit(int limit) {
