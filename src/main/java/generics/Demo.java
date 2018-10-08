@@ -1,5 +1,6 @@
 package generics;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -50,4 +51,19 @@ class Impl2 implements Inter<String> {
 //限制泛型可用类型为某个类、接口或它的子类、实现类
 class Limit<T extends List<?>> {
 	//blabla
+}
+
+class Limit2<E> {
+	/*
+	 * 限制泛型可用类型为某个类的超类;
+	 * 助记符: PECS, 当泛型E为生产者, 使用extends;
+	 * 当E为消费者, 使用super.
+	 */
+	public void popAll(Collection<? super E> c) {
+		
+	}
+	
+	public void pushAll(Collection<? extends E> c) {
+		
+	}
 }
