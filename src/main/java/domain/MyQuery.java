@@ -4,34 +4,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MyQuery {
-	private String orderfield;
-	private String ordertype;
+	private String orderField;
+	private String orderType;
 	private int limit = 10;
 	private int page = 1;
 
 	public MyQuery() {
 	}
 
-	public String getOrderfield() {
-		return orderfield;
+	public String getOrderField() {
+		return orderField;
 	}
 
-	public void setOrderfield(String orderfield) {
-		if (orderfield.length() > 20) {
+	public void setOrderField(String orderField) {
+		if (orderField.length() > 20) {
 			return ;
 		}
-		this.orderfield = orderfield;
+		this.orderField = orderField;
 	}
 
-	public String getOrdertype() {
-		return ordertype;
+	public String getOrderType() {
+		return orderType;
 	}
 
-	public void setOrdertype(String ordertype) {
-		if (!ordertype.equalsIgnoreCase("ASC") || !ordertype.equalsIgnoreCase("DESC")) {
+	public void setOrderType(String orderType) {
+		if (!orderType.equalsIgnoreCase("ASC") || !orderType.equalsIgnoreCase("DESC")) {
 			return ;
 		}
-		this.ordertype = ordertype;
+		this.orderType = orderType;
 	}
 
 	public int getLimit() {
@@ -59,8 +59,8 @@ public class MyQuery {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + limit;
-		result = prime * result + ((orderfield == null) ? 0 : orderfield.hashCode());
-		result = prime * result + ((ordertype == null) ? 0 : ordertype.hashCode());
+		result = prime * result + ((orderField == null) ? 0 : orderField.hashCode());
+		result = prime * result + ((orderType == null) ? 0 : orderType.hashCode());
 		result = prime * result + page;
 		return result;
 	}
@@ -76,15 +76,15 @@ public class MyQuery {
 		MyQuery other = (MyQuery) obj;
 		if (limit != other.limit)
 			return false;
-		if (orderfield == null) {
-			if (other.orderfield != null)
+		if (orderField == null) {
+			if (other.orderField != null)
 				return false;
-		} else if (!orderfield.equals(other.orderfield))
+		} else if (!orderField.equals(other.orderField))
 			return false;
-		if (ordertype == null) {
-			if (other.ordertype != null)
+		if (orderType == null) {
+			if (other.orderType != null)
 				return false;
-		} else if (!ordertype.equals(other.ordertype))
+		} else if (!orderType.equals(other.orderType))
 			return false;
 		if (page != other.page)
 			return false;
@@ -93,7 +93,7 @@ public class MyQuery {
 
 	@Override
 	public String toString() {
-		return "MyQuery [orderfield=" + orderfield + ", ordertype=" + ordertype + ", limit=" + limit + ", page=" + page
+		return "MyQuery [orderField=" + orderField + ", orderType=" + orderType + ", limit=" + limit + ", page=" + page
 				+ "]";
 	}
 

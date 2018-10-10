@@ -97,6 +97,8 @@ public class StringUtils {
      * @return
      */
     public static String underscoreCaseToCamelCase(String str) {
+    	if (str.equals(""))
+    		return str;
     	String[] data = str.split("[_]+");
 		if (data.length > 1) {
 			StringBuilder sb = new StringBuilder();
@@ -111,4 +113,25 @@ public class StringUtils {
 		}
     }
     
+    /**
+     * 驼峰命名转下划线命名
+     * @param str
+     * @return
+     */
+    public static String camelCaseToUnderscoreCase(String str) {
+    	if (str.equals(""))
+    		return str;
+    	StringBuilder builder = new StringBuilder(str);
+    	char first = builder.charAt(0);
+    	if (first >= 'A' && first <= 'Z') {
+    		builder.replace(0, 1, String.valueOf(first += 32));
+    	}
+    	for (int i = builder.length() - 1; i > 0; i--) {
+			char ch = builder.charAt(i);
+			if (ch >= 'A' && ch <= 'Z') {
+				builder.replace(i, i + 1, "_" + (char)(ch+32));
+			}
+		}
+    	return builder.toString();
+    }
 }

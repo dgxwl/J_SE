@@ -1,8 +1,5 @@
 package domain;
 
-import java.util.Collection;
-import java.util.Map;
-
 public class ResponseResult {
 	private int result = 0;
 	private String message;
@@ -51,13 +48,6 @@ public class ResponseResult {
 
 	public void setData(Object data) {
 		this.data = data;
-		if (data instanceof Collection) {
-			Collection<?> c = (Collection<?>) data;
-			total = c.size();
-		} else if (data instanceof Map) {
-			Map<?, ?> m = (Map<?, ?>) data;
-			total = m.size();
-		}
 	}
 	
 	
