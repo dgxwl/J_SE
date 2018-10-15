@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -8,6 +10,7 @@ public class MyQuery {
 	private String orderType;
 	private int limit = 10;
 	private int page = 1;
+	private List<SearchFilter> filter;
 
 	public MyQuery() {
 	}
@@ -48,6 +51,14 @@ public class MyQuery {
 
 	public void setPage(int page) {
 		this.page = page;
+	}
+	
+	public List<SearchFilter> getFilter() {
+		return filter;
+	}
+
+	public void setFilter(List<SearchFilter> filter) {
+		this.filter = filter;
 	}
 
 	public int getOffset() {
