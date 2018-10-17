@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class BubbleSort_advanced {
 	public static void main(String[] args) {
+		//初始化数据
 		Random random = new Random();
 		int[] arr = new int[10];
 		for (int i = 0; i < arr.length; i++) {
@@ -21,6 +22,7 @@ public class BubbleSort_advanced {
 		}
 		System.out.println("排序前: " + Arrays.toString(arr));
 		
+		//开始排序
 		//有序标记
 		boolean isSorted;
 		//最后一次交换的位置
@@ -35,6 +37,7 @@ public class BubbleSort_advanced {
 					temp = arr[j];
 					arr[j] = arr[j+1];
 					arr[j+1] = temp;
+					//发生交换, 还不是有序
 					isSorted = false;
 					//发生交换, 更新最后交换位置
 					lastExchangeIndex = j;

@@ -12,6 +12,7 @@ import java.util.Random;
  */
 public class CockTailSort {
 	public static void main(String[] args) {
+		//初始化数据
 		Random random = new Random();
 		int[] arr = new int[10];
 		for (int i = 0; i < arr.length; i++) {
@@ -19,6 +20,7 @@ public class CockTailSort {
 		}
 		System.out.println("排序前: " + Arrays.toString(arr));
 
+		//开始排序
 		//有序标记
 		boolean isSorted;
 		//记录右侧最后一次交换的位置
