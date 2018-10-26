@@ -18,10 +18,9 @@ import javax.mail.internet.MimeMessage;
 		    <version>1.6.2</version>
 		</dependency>
  */
-public class SendMailUtil {
-	public static void main(String[] args) throws Exception {
-		sendTextMail("smtp.163.com", "dgxwlme", "dgxwl123", "dgxwlme@163.com", "1029325214@qq.com", "只包含文本的简单邮件",
-				"测试");
+public class MailUtil {
+	
+	private MailUtil() {
 	}
 
 	public static void sendTextMail(String host, String senderUsername, String senderPassword, String senderEmail,
