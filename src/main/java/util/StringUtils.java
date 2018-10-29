@@ -134,4 +134,15 @@ public class StringUtils {
 		}
     	return builder.toString();
     }
+    
+    /**
+     * 是否为min~max位数字+字母的字符串
+     * @param str
+     * @return
+     */
+    public static boolean isAlphanumeric(String str, int min, int max) {
+    	if (isNullOrEmpty(str))
+    		return false;
+    	return str.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{" + min + "," + max + "}$");
+    }
 }
