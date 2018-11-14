@@ -11,20 +11,36 @@ public class StringUtils {
 	 * @return
 	 */
 	public static boolean isNullOrEmpty(String str) {
-		return str == null || str.length() == 0;
+		return str == null || str.isEmpty();
 	}
+	
+	/**
+     *判断多个参数其中是否存在空值或空字符串
+     * @param args 多个字符串
+     * @return 存在则返回true 否则返回false
+     */
+    public static boolean multiIsNullOrEmpty(String... args) {
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            if (arg == null || arg.trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 	
 	/**
      * 判断多个参数是否为空
      * @param args 判断的参数
      * @return 返回判断结果数组
+     * @see getAllNullMessages(boolean[] flags, String delimiter, String... messages)
      */
     public static boolean[] multiIsNull(String... args) {
         boolean[] flags = new boolean[args.length];
 
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
-            if (null == arg||arg.trim().equals("")) {
+            if (arg == null || arg.trim().isEmpty()) {
                 flags[i] = true;
             }
         }
@@ -33,26 +49,12 @@ public class StringUtils {
     }
 
     /**
-     *判断多个参数是否存在空值或空字符串
-     * @param args 多个字符串
-     * @return 存在则返回true 否则返回false
-     */
-    public static boolean multiIsNullOrEmpty(String... args) {
-        for (int i = 0; i < args.length; i++) {
-            String arg = args[i];
-            if (null == arg||arg.trim().equals("")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * 根据判断多个参数是否为空的结果给出对应的提示信息
      * @param flags 判断多个参数是否为空的结果数组
      * @param delimiter 分隔符
      * @param messages 各参数为空时对应的提示
-     * @return
+     * @return 返回拼接的所有提示
+     * @see boolean[] multiIsNull(String... args)
      */
     public static String getAllNullMessages(boolean[] flags, String delimiter, String... messages) {
         if (flags.length != messages.length) {
@@ -97,7 +99,7 @@ public class StringUtils {
      * @return
      */
     public static String underscoreCaseToCamelCase(String str) {
-    	if (str.equals(""))
+    	if (isNullOrEmpty(str))
     		return str;
     	String[] data = str.split("[_]+");
 		if (data.length > 1) {
@@ -119,7 +121,7 @@ public class StringUtils {
      * @return
      */
     public static String camelCaseToUnderscoreCase(String str) {
-    	if (str.equals(""))
+    	if (isNullOrEmpty(str))
     		return str;
     	StringBuilder builder = new StringBuilder(str);
     	char first = builder.charAt(0);
@@ -145,4 +147,15 @@ public class StringUtils {
     		return false;
     	return str.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{" + min + "," + max + "}$");
     }
+    
+    /**
+     * 是否为邮箱
+     * @param string
+     * @return
+     */
+    public static boolean isEmail(String str) {
+		if (isNullOrEmpty(str))
+			return false;
+		return str.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+	}
 }

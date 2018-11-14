@@ -79,9 +79,9 @@ public class WriteXmlDemo {
 		}
 		
 		XMLWriter writer = null;
-		try {
+		try (FileOutputStream fos = new FileOutputStream("myemp.xml")) {
 			//创建XMLWriter
-			writer = new XMLWriter(new FileOutputStream("myemp.xml"), OutputFormat.createPrettyPrint());
+			writer = new XMLWriter(fos, OutputFormat.createPrettyPrint());
 			
 			writer.write(doc);
 			System.out.println("写出完毕!");

@@ -22,7 +22,7 @@ public class Test1 {
 
 	private static void copyFileUsingFileChannels(String source, String dest) throws IOException {
 		try (FileChannel inputChannel = new FileInputStream(source).getChannel();
-				FileChannel outputChannel = new FileOutputStream(dest).getChannel();) {
+				FileChannel outputChannel = new FileOutputStream(dest).getChannel()) {
 //			outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
 			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 		} catch (Exception e) {
