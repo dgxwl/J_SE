@@ -9,13 +9,18 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
+/**
+ * 需要Java8以上
+ * @author Administrator
+ *
+ */
 public class Base64Util {
 	private Base64Util() {
 	}
 
 	/**
 	 * 图片编码为base64;
-	 * 例: 在html中, <img src="data:image/jpeg;base64,[base编码放这里]">,
+	 * 例: 在html中, <code>&lt;img src="data:image/jpeg;base64,[base编码放这里]"&gt;</code>,
 	 * 可节省一次获取图片的请求, 但浏览器不会缓存此图片.
 	 * @param imgFilePath 图片路径
 	 * @return base64编码字符串
@@ -28,7 +33,7 @@ public class Base64Util {
 	
 	/**
 	 * 图片编码为base64;
-	 * 例: 在html中, <img src="data:image/jpeg;base64,[base编码放这里]">,
+	 * 例: 在html中, <code>&lt;img src="data:image/jpeg;base64,[base编码放这里]"&gt;</code>,
 	 * 可节省一次获取图片的请求, 但浏览器不会缓存此图片.
 	 * @param in 图片输入流
 	 * @return base64编码字符串
