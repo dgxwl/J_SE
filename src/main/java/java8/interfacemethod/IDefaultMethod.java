@@ -13,7 +13,12 @@ public interface IDefaultMethod {
 	}
 	
 	//在接口中可以定义静态方法
-	static void staticMethod() {
+	public static void staticMethod() {
 		System.out.println("This is a static method.");
 	}
+	
+	//Illegal modifier for the interface method staticsMethod; only public, abstract, default, static and strictfp are permitted
+//	private static void staticsMethod() {  //error
+//		System.out.println("This is a static method.");
+//	}
 }
