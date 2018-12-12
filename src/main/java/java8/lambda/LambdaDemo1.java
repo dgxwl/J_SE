@@ -28,9 +28,9 @@ public class LambdaDemo1 {
 	public static void main(String[] args) {
 		List<String> list = new ArrayList<String>();
 		
-		list.add("苍老师");
-		list.add("小泽老师");
-		list.add("范范");
+		list.add("Adam");
+		list.add("Christina");
+		list.add("David");
 		System.out.println(list);
 		
 		Collections.sort(list, new Comparator<String>() {

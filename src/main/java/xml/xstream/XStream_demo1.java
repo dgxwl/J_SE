@@ -11,6 +11,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * 使用XStream可以实现Java对象与XML字符串互相转换.
@@ -21,7 +22,7 @@ public class XStream_demo1 {
 
 	public static void main(String[] args) {
 		Person p1 = new Person(1, "sally");
-		XStream xStream = new XStream();
+		XStream xStream = new XStream(new DomDriver());
 		//设置默认安全防护
 		XStream.setupDefaultSecurity(xStream);
 		//设置允许的类

@@ -43,6 +43,10 @@ public class MyQuery {
 	}
 
 	public void setLimit(int limit) {
+		if (limit <= 0) {
+			this.limit = 10;
+			return ;
+		}
 		this.limit = limit;
 	}
 
@@ -51,6 +55,10 @@ public class MyQuery {
 	}
 
 	public void setPage(int page) {
+		if (page <= 0) {
+			this.page = 1;
+			return ;
+		}
 		this.page = page;
 	}
 	
