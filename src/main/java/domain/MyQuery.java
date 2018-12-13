@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MyQuery {
 	private String orderField;
-	private String orderType;
+	private String orderType = "ASC";
 	private int limit = 10;
 	private int page = 1;
 	private List<SearchFilter> filters = new ArrayList<>();
@@ -21,10 +21,7 @@ public class MyQuery {
 	}
 
 	public void setOrderField(String orderField) {
-		if (orderField.length() > 20) {
-			return ;
-		}
-		this.orderField = orderField;
+		this.orderField = orderField.replaceAll(".*([';]+|(--)+|=).*", "");;
 	}
 
 	public String getOrderType() {
@@ -44,7 +41,6 @@ public class MyQuery {
 
 	public void setLimit(int limit) {
 		if (limit <= 0) {
-			this.limit = 10;
 			return ;
 		}
 		this.limit = limit;
@@ -56,7 +52,6 @@ public class MyQuery {
 
 	public void setPage(int page) {
 		if (page <= 0) {
-			this.page = 1;
 			return ;
 		}
 		this.page = page;
