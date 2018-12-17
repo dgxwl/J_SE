@@ -3,6 +3,7 @@ package domain;
 public class SearchFilter {
 	private static final String STRING = "string";
 	private static final String NUMBER = "number";
+	private static final String BOOL = "bool";
 	private static final String DATE = "date";
 
 	private String column;
@@ -97,7 +98,18 @@ public class SearchFilter {
 	public String getValue() {
 		if (v) {
 			value = value.replaceAll(".*([';]+|(--)+|=).*", "");
-			if (!type.equals(STRING)) {
+			if (BOOL.equals(type)) {
+				if (!"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)
+						 && !"t".equalsIgnoreCase(value) && !"f".equalsIgnoreCase(value)) {
+					throw new SearchFilterException("value error: " + value);
+				}
+				if ("t".equalsIgnoreCase(value)) {
+					value = "true";
+				} else if ("f".equalsIgnoreCase(value)) {
+					value = "false";
+				}
+			}
+			if (!BOOL.equals(type) && !type.equals(STRING)) {
 				if (value.matches("\\w*[a-zA-Z]\\w*")) {
 					throw new SearchFilterException("value error: " + value);
 				}
@@ -122,7 +134,7 @@ public class SearchFilter {
 				builder.append(')');
 				value = builder.toString();
 			} else if (operator.equals("=") || operator.equals("!=")) {
-				if (NaN) value = "\'" + value + "\'";
+				if (NaN && !BOOL.equals(type)) value = "\'" + value + "\'";
 			} else if (operator.equals("LIKE") || operator.equals("NOT LIKE")) {
 				value = "'%" + value + "%'";
 			} else if (operator.equals("IS NULL") || operator.equals("IS NOT NULL") || operator.startsWith("BETWEEN")) {
@@ -145,7 +157,7 @@ public class SearchFilter {
 	}
 
 	public void setType(String type) {
-		if (!type.equals(STRING) && !type.equals(NUMBER) && !type.equals(DATE))
+		if (!STRING.equals(type) && !NUMBER.equals(type) && !DATE.equals(type) && !BOOL.equals(type))
 			throw new SearchFilterException("type error: " + type);
 		this.type = type;
 	}

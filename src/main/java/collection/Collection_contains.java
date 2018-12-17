@@ -2,6 +2,7 @@ package collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * 判断集合是否包含给定元素
@@ -35,5 +36,15 @@ public class Collection_contains {
 		//判断c集合是否包含c2集合中的所有元素
 		boolean containAll = c.containsAll(c2);
 		System.out.println("全包含：" + containAll);
+		
+		/*
+		 * Collections.frequency(c, o)
+		 * 参数c传入一个集合, o传入一个值
+		 * 返回值o在集合c中的个数
+		 */
+		Collection c3 = new ArrayList<>(c2);
+		c3.add("c");
+		int frequency = Collections.frequency(c3, "c");
+		System.out.println(frequency);
 	}
 }
