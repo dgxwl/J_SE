@@ -50,7 +50,10 @@ public class SearchFilter {
 			}
 			if (common) {return operator;}
 			
-			if (type.equals(STRING)) {
+			if (BOOL.equals(type)) {
+				throw new SearchFilterException("type 'bool' invalid oper: " + operator);
+			}
+			if (STRING.equals(type)) {
 				switch (operator) {
 				case "l":
 					operator = "LIKE";
@@ -59,7 +62,7 @@ public class SearchFilter {
 					operator = "NOT LIKE";
 					break;
 				default:
-					throw new SearchFilterException("oper error: " + operator);
+					throw new SearchFilterException("type 'string' invalid oper: " + operator);
 				}
 			} else {  //else if (type.equals(NUMBER) || type.equals(DATE))
 				switch (operator) {
@@ -78,11 +81,11 @@ public class SearchFilter {
 				case "bw":
 					String[] data = value.split("-");
 					if (data.length != 2)
-						throw new SearchFilterException("value error: " + value);
+						throw new SearchFilterException("oper 'bw' invalid value: " + value);
 					operator = "BETWEEN "+ data[0] + " AND " + data[1];
 					break;
 				default:
-					throw new SearchFilterException("oper error: " + operator);
+					throw new SearchFilterException("type 'number/date' invalid oper: " + operator);
 				}
 			}
 			o = false;
@@ -91,17 +94,23 @@ public class SearchFilter {
 	}
 
 	public void setOperator(String operator) {
+		if (!"eq".equals(operator) && !"neq".equals(operator) && !"isn".equals(operator)
+				&& !"isnn".equals(operator) && !"in".equals(operator) && !"l".equals(operator)
+				&& !"nl".equals(operator) && !"gt".equals(operator) && !"lt".equals(operator)
+				&& !"gte".equals(operator) && !"lte".equals(operator) && !"bw".equals(operator))
+		{
+			throw new SearchFilterException("invalid oper: " + operator);
+		}
 		this.operator = operator;
 	}
 
 	private boolean v = true;
 	public String getValue() {
 		if (v) {
-			value = value.replaceAll(".*([';]+|(--)+|=).*", "");
 			if (BOOL.equals(type)) {
 				if (!"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)
 						 && !"t".equalsIgnoreCase(value) && !"f".equalsIgnoreCase(value)) {
-					throw new SearchFilterException("value error: " + value);
+					throw new SearchFilterException("type 'bool' value error: " + value);
 				}
 				if ("t".equalsIgnoreCase(value)) {
 					value = "true";
@@ -110,26 +119,30 @@ public class SearchFilter {
 				}
 			}
 			if (!BOOL.equals(type) && !type.equals(STRING)) {
-				if (value.matches("\\w*[a-zA-Z]\\w*")) {
-					throw new SearchFilterException("value error: " + value);
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) && value.matches("\\w*[a-zA-Z]\\w*")) {
+					throw new SearchFilterException("type 'number/date' invalid value: " + value);
 				}
 			}
-			boolean NaN = !type.equals(NUMBER);
+			boolean NaN = !NUMBER.equals(type);
 			if (operator.equals("IN")) {
 				StringBuilder builder = new StringBuilder();
 				builder.append("(");
 				String[] data = value.split("\\s*,\\s*");
 				if (data.length < 1) {
-					throw new SearchFilterException("value error: " + value);
+					throw new SearchFilterException("oper 'in' invalid value: " + value);
 				}
-				if (NaN) builder.append('\'');
-				builder.append(data[0]);
-				if (NaN) builder.append('\'');
-				for (int i = 1; i < data.length; i++) {
-					builder.append(',');
+
+				for (int i = 0; i < data.length; i++) {
+					if (NUMBER.equals(type) && !data[i].matches("[1-9]+(\\.\\d+)?")) {
+						throw new SearchFilterException("type 'number' and oper 'in' invalid value: " + data[i]);
+					}
+					
 					if (NaN) builder.append('\'');
 					builder.append(data[i]);
 					if (NaN) builder.append('\'');
+					if (i != data.length - 1) {
+						builder.append(',');
+					}
 				}
 				builder.append(')');
 				value = builder.toString();
@@ -140,7 +153,7 @@ public class SearchFilter {
 			} else if (operator.equals("IS NULL") || operator.equals("IS NOT NULL") || operator.startsWith("BETWEEN")) {
 				value = "";
 			} else {
-				if (type.equals(STRING)) throw new SearchFilterException("value error: " + value);
+				if (type.equals(STRING)) throw new SearchFilterException("type 'string' invalid value: " + value);
 				if (type.equals(DATE)) value = "\'" + value + "\'";
 			}
 			v = false;
@@ -158,12 +171,21 @@ public class SearchFilter {
 
 	public void setType(String type) {
 		if (!STRING.equals(type) && !NUMBER.equals(type) && !DATE.equals(type) && !BOOL.equals(type))
-			throw new SearchFilterException("type error: " + type);
+			throw new SearchFilterException("invalid type: " + type);
 		this.type = type;
 	}
 	
 	@Override
 	public String toString() {
-		return column + " " + operator + " " + value;
+		return getColumn() + " " + getOperator() + " " + getValue();
+	}
+	
+	public static void main(String[] args) {
+		SearchFilter filter = new SearchFilter();
+		filter.setType("string");
+		filter.setColumn("col");
+		filter.setOperator("nl");
+		filter.setValue("99,w98");
+		System.out.println(filter);
 	}
 }
