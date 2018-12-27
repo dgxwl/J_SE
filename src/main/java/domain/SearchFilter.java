@@ -48,7 +48,10 @@ public class SearchFilter {
 				common = true;
 				break;
 			}
-			if (common) {return operator;}
+			if (common) {
+				o = false;
+				return operator;
+			}
 			
 			if (BOOL.equals(type)) {
 				throw new SearchFilterException("type 'bool' invalid oper: " + operator);
@@ -80,9 +83,13 @@ public class SearchFilter {
 					break;
 				case "bw":
 					String[] data = value.split("-");
-					if (data.length != 2)
+					if (data.length != 2) {
 						throw new SearchFilterException("oper 'bw' invalid value: " + value);
-					operator = "BETWEEN "+ data[0] + " AND " + data[1];
+					}
+					if (!data[0].matches("[\\d\\-:\\s]+") || !data[1].matches("[\\d\\-:\\s]+")) {
+						throw new SearchFilterException("oper 'bw' invalid value: " + value);
+					}
+					operator = "BETWEEN " + data[0] + " AND " + data[1];
 					break;
 				default:
 					throw new SearchFilterException("type 'number/date' invalid oper: " + operator);
@@ -108,7 +115,8 @@ public class SearchFilter {
 	public String getValue() {
 		if (v) {
 			if (BOOL.equals(type)) {
-				if (!"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL"))
+						&& !"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)
 						 && !"t".equalsIgnoreCase(value) && !"f".equalsIgnoreCase(value)) {
 					throw new SearchFilterException("type 'bool' value error: " + value);
 				}
@@ -118,11 +126,19 @@ public class SearchFilter {
 					value = "false";
 				}
 			}
-			if (!BOOL.equals(type) && !type.equals(STRING)) {
-				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) && value.matches("\\w*[a-zA-Z]\\w*")) {
-					throw new SearchFilterException("type 'number/date' invalid value: " + value);
+			if (NUMBER.equals(type)) {
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) 
+						&& !operator.equals("IN") && !operator.startsWith("BETWEEN")
+						&& !value.matches("\\-?[0-9]+(\\.\\d+)?")) {
+					throw new SearchFilterException("type 'number' invalid value: " + value);
 				}
 			}
+			if (DATE.equals(type)) {
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) && !value.matches("[\\d\\-:\\s]+")) {
+					throw new SearchFilterException("type 'date' invalid value: " + value);
+				}
+			}
+			
 			boolean NaN = !NUMBER.equals(type);
 			if (operator.equals("IN")) {
 				StringBuilder builder = new StringBuilder();
@@ -182,10 +198,10 @@ public class SearchFilter {
 	
 	public static void main(String[] args) {
 		SearchFilter filter = new SearchFilter();
-		filter.setType("string");
-		filter.setColumn("col");
-		filter.setOperator("nl");
-		filter.setValue("99,w98");
+		filter.setType("bool");
+		filter.setColumn("colName");
+		filter.setOperator("in");
+		filter.setValue("t");
 		System.out.println(filter);
 	}
 }
