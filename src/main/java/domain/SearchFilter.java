@@ -82,14 +82,18 @@ public class SearchFilter {
 					operator = "<=";
 					break;
 				case "bw":
-					String[] data = value.split("-");
+					String[] data = value.split("\\s*,\\s*");
 					if (data.length != 2) {
 						throw new SearchFilterException("oper 'bw' invalid value: " + value);
 					}
 					if (!data[0].matches("[\\d\\-:\\s]+") || !data[1].matches("[\\d\\-:\\s]+")) {
 						throw new SearchFilterException("oper 'bw' invalid value: " + value);
 					}
-					operator = "BETWEEN " + data[0] + " AND " + data[1];
+					if (NUMBER.equals(type)) {
+						operator = "BETWEEN " + data[0] + " AND " + data[1];
+					} else {
+						operator = "BETWEEN '" + data[0] + "' AND '" + data[1] + "'";
+					}
 					break;
 				default:
 					throw new SearchFilterException("type 'number/date' invalid oper: " + operator);
@@ -118,7 +122,17 @@ public class SearchFilter {
 				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL"))
 						&& !"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)
 						 && !"t".equalsIgnoreCase(value) && !"f".equalsIgnoreCase(value)) {
-					throw new SearchFilterException("type 'bool' value error: " + value);
+					if (operator.equals("IN")) {
+						String[] data = value.split(",");
+						for (String val : data) {
+							if (!"true".equalsIgnoreCase(val) && !"false".equalsIgnoreCase(val)
+									&& !"t".equalsIgnoreCase(val) && !"f".equalsIgnoreCase(val)) {
+								throw new SearchFilterException("type 'bool' value error: " + val);
+							}
+						}
+					} else {
+						throw new SearchFilterException("type 'bool' value error: " + value);
+					}
 				}
 				if ("t".equalsIgnoreCase(value)) {
 					value = "true";
@@ -127,14 +141,16 @@ public class SearchFilter {
 				}
 			}
 			if (NUMBER.equals(type)) {
-				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) 
-						&& !operator.equals("IN") && !operator.startsWith("BETWEEN")
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")
+						|| operator.equals("IN") || operator.startsWith("BETWEEN"))
 						&& !value.matches("\\-?[0-9]+(\\.\\d+)?")) {
 					throw new SearchFilterException("type 'number' invalid value: " + value);
 				}
 			}
 			if (DATE.equals(type)) {
-				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")) && !value.matches("[\\d\\-:\\s]+")) {
+				if (!(operator.equals("IS NULL") || operator.equals("IS NOT NULL")
+						|| operator.equals("IN") || operator.startsWith("BETWEEN"))
+						&& !value.matches("[\\d\\-:\\s]+")) {
 					throw new SearchFilterException("type 'date' invalid value: " + value);
 				}
 			}
@@ -149,7 +165,7 @@ public class SearchFilter {
 				}
 
 				for (int i = 0; i < data.length; i++) {
-					if (NUMBER.equals(type) && !data[i].matches("[1-9]+(\\.\\d+)?")) {
+					if (NUMBER.equals(type) && !data[i].matches("\\-?[0-9]+(\\.\\d+)?")) {
 						throw new SearchFilterException("type 'number' and oper 'in' invalid value: " + data[i]);
 					}
 					
@@ -198,10 +214,10 @@ public class SearchFilter {
 	
 	public static void main(String[] args) {
 		SearchFilter filter = new SearchFilter();
-		filter.setType("bool");
+		filter.setType("date");
 		filter.setColumn("colName");
-		filter.setOperator("in");
-		filter.setValue("t");
+		filter.setOperator("bw");
+		filter.setValue("");
 		System.out.println(filter);
 	}
 }
