@@ -212,12 +212,4 @@ public class SearchFilter {
 		return getColumn() + " " + getOperator() + " " + getValue();
 	}
 	
-	public static void main(String[] args) {
-		SearchFilter filter = new SearchFilter();
-		filter.setType("date");
-		filter.setColumn("colName");
-		filter.setOperator("bw");
-		filter.setValue("");
-		System.out.println(filter);
-	}
 }
