@@ -2,6 +2,7 @@ package date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -52,7 +53,8 @@ public class DateTimeFormatter_demo {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		for (int i = 0; i < 10; i++) {
 			new Thread(() -> {
-				System.out.println(dtf.parse("2019-03-20 12:56:34"));
+				LocalDateTime time = LocalDateTime.parse("2019-03-20 12:56:34", dtf);
+				System.out.println(time);
 			}).start();
 		}
 	}
