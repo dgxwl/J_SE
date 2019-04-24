@@ -25,5 +25,12 @@ public class SimpleDateFormat_format {
 		 */
 		String str = sdf.format(date);
 		System.out.println(str);
+		
+		/*
+		 * 如果格式化中的非时间字符是表示时间的字符(如y/M/m/d等, 需要加上单引号转义)
+		 */
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+		String str2 = sdf2.format(date);
+		System.out.println(str2);
 	}
 }
