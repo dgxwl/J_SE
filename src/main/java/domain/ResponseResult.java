@@ -1,10 +1,11 @@
 package domain;
 
 public class ResponseResult {
-	private int result = 0;
+	private int result = 1;
 	private String message;
 	private int total;
 	private Object data;
+	private Object extraData;
 	
 	public ResponseResult() {
 	}
@@ -49,6 +50,13 @@ public class ResponseResult {
 	public void setData(Object data) {
 		this.data = data;
 	}
-	
+
+	public Object getExtraData() {
+		return extraData;
+	}
+
+	public void setExtraData(Object extraData) {
+		this.extraData = extraData;
+	}
 	
 }
