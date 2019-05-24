@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * 《Effective Java》书中的例子.由于重载带来的错误
+ * 《Effective Java》书中的例子(第41条).由于重载带来的错误
  * @author Administrator
  *
  */
