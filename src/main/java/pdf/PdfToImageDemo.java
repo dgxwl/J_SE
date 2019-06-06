@@ -18,12 +18,12 @@ import com.itextpdf.text.pdf.PdfReader;
  * <dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>fontbox</artifactId>
-			<version>2.0.1</version>
+			<version>2.0.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
-			<version>2.0.1</version>
+			<version>2.0.12</version>
 		</dependency>
  * 
  * @author Administrator
@@ -41,6 +41,7 @@ public class PdfToImageDemo {
 	 * @param dpi 越大转换后越清晰，相对转换速度越慢
 	 */
 	public static void pdf2Image(String PdfFilePath, String dstImgFolder, int dpi) {
+		System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 		File file = new File(PdfFilePath);
 		PDDocument pdDocument;
 		try {
