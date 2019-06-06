@@ -1,6 +1,6 @@
 package algorithm.Astar;
 
-public class Node {
+public class Point {
 	protected int x;
 	protected int y;
 
@@ -8,9 +8,9 @@ public class Node {
 	protected int H; // 当前位置到目标位置的步数估算(曼哈顿距离)
 	protected int F; // G与H的和
 
-	protected Node prev; // 本节点的上一个节点
+	protected Point prev; // 本节点的上一个节点
 
-	public Node(int x, int y) {
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -32,7 +32,7 @@ public class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		Point other = (Point) obj;
 		if (x != other.x)
 			return false;
 		if (y != other.y)

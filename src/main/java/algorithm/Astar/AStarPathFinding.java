@@ -23,11 +23,11 @@ public class AStarPathFinding {
 			{0, 0, 0, 0, 0, 0, 0, 0}
 	};
 	
-	private static Node start = new Node(1, 4);  //给定起点
-	private static Node dest = new Node(6, 5);  //给定目标点
+	private static Point start = new Point(1, 4);  //给定起点
+	private static Point dest = new Point(6, 5);  //给定目标点
 
 	public static void main(String[] args) {
-		Node destWithPath = findPath(start);
+		Point destWithPath = findPath(start);
 		
 		while (destWithPath != null) {
 			MAP[destWithPath.y][destWithPath.x] = 6;
@@ -39,70 +39,70 @@ public class AStarPathFinding {
 		}
 	}
 	
-	private static List<Node> openList = new LinkedList<>();
-	private static List<Node> closedList = new LinkedList<>();
+	private static List<Point> openList = new LinkedList<>();
+	private static List<Point> closedList = new LinkedList<>();
 	
-	public static Node findPath(Node currentNode) {
+	public static Point findPath(Point currentPoint) {
 		//1.首先将起始位置加入closed列表
-		closedList.add(currentNode);
+		closedList.add(currentPoint);
 		
 		//2.找到相邻可到达位置(不走斜线)
-		int currentX = currentNode.x;
-		int currentY = currentNode.y;
+		int currentX = currentPoint.x;
+		int currentY = currentPoint.y;
 		
 		//查找四周的点(不走斜线), 将可到达的计算G,H,F值, 并加入到openList
 		int topX = currentX;
 		int topY = currentY - 1;
-		handleNeighbor(topX, topY, currentNode);
+		handleNeighbor(topX, topY, currentPoint);
 		
 		int bottomX = currentX;
 		int bottomY = currentY + 1;
-		handleNeighbor(bottomX, bottomY, currentNode);
+		handleNeighbor(bottomX, bottomY, currentPoint);
 		
 		int leftX = currentX - 1;
 		int leftY = currentY;
-		handleNeighbor(leftX, leftY, currentNode);
+		handleNeighbor(leftX, leftY, currentPoint);
 		
 		int rightX = currentX + 1;
 		int rightY = currentY;
-		handleNeighbor(rightX, rightY, currentNode);
+		handleNeighbor(rightX, rightY, currentPoint);
 		
 		if (openList.size() == 0) {  //没有可到达终点的路径, 返回
 			return null;
 		}
 		
 		//检查目标点是否已在openList中, 如果存在即找到了完整路径, 返回
-		for (Node node : openList) {
-			if (node.equals(dest)) {
-				return node;
+		for (Point p : openList) {
+			if (p.equals(dest)) {
+				return p;
 			}
 		}
 
 		//4.从openList中找出F最小的, 移除并加入closedList
-		Node minFNode = openList.get(0);
-		int minNodeIndex = 0;
+		Point minFPoint = openList.get(0);
+		int minFPointIndex = 0;
 		for (int i = 1; i < openList.size(); i++) {
-			Node n = openList.get(i);
-			if (n.F < minFNode.F) {
-				minFNode = n;
-				minNodeIndex = i;
+			Point n = openList.get(i);
+			if (n.F < minFPoint.F) {
+				minFPoint = n;
+				minFPointIndex = i;
 			}
 		}
 		
-		openList.remove(minNodeIndex);
+		openList.remove(minFPointIndex);
 
-		return findPath(minFNode);
+		return findPath(minFPoint);
 	}
 	
-	public static void handleNeighbor(int neighborX, int neighborY, Node currentNode) {  //包括计算G,H,F, 添加到openlist如果(未添加)
+	public static void handleNeighbor(int neighborX, int neighborY, Point currentPoint) {  //包括计算G,H,F, 添加到openlist如果(未添加)
 		if (canAddToOpen(neighborX, neighborY)) {
-			for (Node node : openList) {
-				int newG = node.prev.G + 1;
-				if (node.x == neighborX && node.y == neighborY) {  //如果此节点在openList中已存在, 仅更新prev,G,F
-					if (newG < node.G) {
-						node.prev = currentNode;
-						node.G = newG;
-						node.F = node.G + node.H;
+			for (Point point : openList) {
+				int newG = point.prev.G + 1;
+				if (point.x == neighborX && point.y == neighborY) {  //如果此节点在openList中已存在, 仅更新prev,G,F
+					if (newG < point.G) {
+						point.prev = currentPoint;
+						point.G = newG;
+						point.F = point.G + point.H;
 					}
 					
 					return ;
@@ -115,8 +115,8 @@ public class AStarPathFinding {
 			 * H: 当前点到目标点的预估步值(使用曼哈顿距离预估)
 			 * F: G + H
 			 */
-			Node n = new Node(neighborX, neighborY);
-			n.prev = currentNode;
+			Point n = new Point(neighborX, neighborY);
+			n.prev = currentPoint;
 			n.G = n.prev.G + 1;
 			n.H = calManhattanDistance(n.x, n.y, dest.x, dest.y);
 			n.F = n.G + n.H;
@@ -141,7 +141,7 @@ public class AStarPathFinding {
 	}
 	
 	public static boolean inClosedList(int x, int y) {  //位置在closedList里
-		for (Node n : closedList) {
+		for (Point n : closedList) {
 			if (n.x == x && n.y == y) {
 				return true;
 			}
