@@ -28,11 +28,17 @@ public class PdfAddImageDemo {
 		byte[] bs = new byte[fos.available()];
 		fos.read(bs);
 		
-		generatePDF("F:\\qweqwe.pdf", "F:\\qweqwe2.pdf", bs);
+		generatePDF("F:/qweqwe.pdf", "F:/qweqwe2.pdf", bs);
 		
 		fos.close();
 	}
 
+	/**
+	 * 读取pdf文件, 插入图片后生成新的pdf文件
+	 * @param pdfPath 待处理pdf文件路径
+	 * @param newPDFPath 处理后的新文件路径
+	 * @param imagePath 需要插入的图片文件路径
+	 */
 	public static void generatePDF(String pdfPath, String newPDFPath, String imagePath) {
 		PdfReader reader = null;
 		PdfStamper stamper = null;
@@ -81,6 +87,12 @@ public class PdfAddImageDemo {
 		}
 	}
 	
+	/**
+	 * 读取pdf文件, 插入图片后生成新的pdf文件
+	 * @param pdfPath 待处理pdf文件路径
+	 * @param newPDFPath 处理后的新文件路径
+	 * @param imageBytes 需要插入的图片文件字节数组(可从流中获得)
+	 */
 	public static void generatePDF(String pdfPath, String newPDFPath, byte[] imageBytes) {
 		PdfReader reader = null;
 		PdfStamper stamper = null;
