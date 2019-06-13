@@ -49,8 +49,7 @@ public class AStarPathFinding {
 		//2.找到相邻可到达位置(不走斜线)
 		int currentX = currentPoint.x;
 		int currentY = currentPoint.y;
-		
-		//查找四周的点(不走斜线), 将可到达的计算G,H,F值, 并加入到openList
+		//查找四周的点(不走斜线), 3.将可到达的计算G,H,F值, 4.并加入到openList
 		int topX = currentX;
 		int topY = currentY - 1;
 		handleNeighbor(topX, topY, currentPoint);
@@ -78,7 +77,7 @@ public class AStarPathFinding {
 			}
 		}
 
-		//4.从openList中找出F最小的, 移除并加入closedList
+		//5.从openList中找出F最小的, 移除并加入closedList
 		Point minFPoint = openList.get(0);
 		int minFPointIndex = 0;
 		for (int i = 1; i < openList.size(); i++) {
@@ -94,7 +93,7 @@ public class AStarPathFinding {
 		return findPath(minFPoint);
 	}
 	
-	public static void handleNeighbor(int neighborX, int neighborY, Point currentPoint) {  //包括计算G,H,F, 添加到openlist如果(未添加)
+	public static void handleNeighbor(int neighborX, int neighborY, Point currentPoint) {  //包括计算G,H,F, 添加到openList(如果不在openList中)
 		if (canAddToOpen(neighborX, neighborY)) {
 			for (Point point : openList) {
 				int newG = point.prev.G + 1;
@@ -129,7 +128,7 @@ public class AStarPathFinding {
 		return Math.abs(x1 - x2) + Math.abs(y1 - y2);
 	}
 	
-	public static boolean canAddToOpen(int x, int y) {  //可加入openList的点需要满足: 1非障碍, 2不超出地图范围, 3不在closed中
+	public static boolean canAddToOpen(int x, int y) {  //可加入openList的点需要满足: 1非障碍, 2不超出地图范围, 3不在closedList中
 		return canReach(x, y) && !inClosedList(x, y);
 	}
 	
