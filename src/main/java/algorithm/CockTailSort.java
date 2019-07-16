@@ -1,7 +1,6 @@
 package algorithm;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * 鸡尾酒排序是冒泡排序的改进, 为了避免
@@ -13,11 +12,7 @@ import java.util.Random;
 public class CockTailSort {
 	public static void main(String[] args) {
 		//初始化数据
-		Random random = new Random();
-		int[] arr = new int[10];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = random.nextInt(200);
-		}
+		int[] arr = Common.randomIntArray(10, 200);
 		System.out.println("排序前: " + Arrays.toString(arr));
 
 		//开始排序

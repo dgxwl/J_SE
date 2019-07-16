@@ -2,7 +2,6 @@ package algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * 桶排序: 使用"桶"将元素划分为多个区间范围, 再对各个桶内部进行排序;
@@ -13,11 +12,7 @@ import java.util.Random;
 public class BucketSort {
 	public static void main(String[] args) {
 		//初始化数据
-		Random random = new Random();
-		double[] arr = new double[10];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = random.nextDouble() * 10;
-		}
+		double[] arr = Common.randomDoubleArray(10, 100);
 		System.out.println("排序前: " + Arrays.toString(arr));
 		
 		//开始排序

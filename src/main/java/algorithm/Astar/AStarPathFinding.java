@@ -139,7 +139,7 @@ public class AStarPathFinding {
 		return MAP[y][x] == 0;
 	}
 	
-	public static boolean inClosedList(int x, int y) {  //位置在closedList里
+	public static boolean inClosedList(int x, int y) {  //是否在closedList中
 		for (Point n : closedList) {
 			if (n.x == x && n.y == y) {
 				return true;

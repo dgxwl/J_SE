@@ -1,7 +1,6 @@
 package algorithm;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * 冒泡算法优化
@@ -15,11 +14,7 @@ import java.util.Random;
 public class BubbleSort_advanced {
 	public static void main(String[] args) {
 		//初始化数据
-		Random random = new Random();
-		int[] arr = new int[10];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = random.nextInt(20);
-		}
+		int[] arr = Common.randomIntArray(10, 20);
 		System.out.println("排序前: " + Arrays.toString(arr));
 		
 		//开始排序
