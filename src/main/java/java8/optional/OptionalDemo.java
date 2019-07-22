@@ -22,9 +22,7 @@ public class OptionalDemo {
 		}
 
 		// 新写法
-		Optional.ofNullable(person).ifPresent(p -> {
-			System.out.println(p);
-		});
+		Optional.ofNullable(person).ifPresent(System.out::println);
 
 		try {
 			// 以前验证非空并抛异常的写法
