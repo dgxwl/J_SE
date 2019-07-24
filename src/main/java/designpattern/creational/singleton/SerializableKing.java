@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 当单例模式的类实现了序列化接口时,反序列化时会破坏其单例性;
- * 解决办法: 成员变量添加transient关键字, 定义readResolve()方法.
+ * 解决办法: 所有实例成员变量添加transient关键字, 定义readResolve()方法.
  * @author Administrator
  *
  */
