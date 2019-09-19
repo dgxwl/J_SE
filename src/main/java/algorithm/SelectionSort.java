@@ -13,7 +13,6 @@ public class SelectionSort {
 		int arr[] = Common.randomIntArray(10, 20);
 		System.out.println("排序前: " + Arrays.toString(arr));
 		
-		
 		for (int sortedLength = 0; sortedLength != arr.length; sortedLength++) {
 			int minIndex = sortedLength;
 			for (int i = sortedLength; i < arr.length; i++) {
