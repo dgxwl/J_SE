@@ -15,6 +15,23 @@ public class MyQuery {
 
 	public MyQuery() {
 	}
+	
+	public MyQuery(int page, int limit) {
+		this.page = page;
+		this.limit = limit;
+	}
+	
+	public MyQuery(String orderField, String orderType) {
+		this.setOrderField(orderField);
+		this.setOrderType(orderType);
+	}
+	
+	public MyQuery(int page, int limit, String orderField, String orderType) {
+		this.page = page;
+		this.limit = limit;
+		this.orderField = orderField;
+		this.orderType = orderType;
+	}
 
 	public String getOrderField() {
 		return orderField;
@@ -63,6 +80,15 @@ public class MyQuery {
 
 	public void setFilters(List<SearchFilter> filters) {
 		this.filters = filters;
+	}
+	
+	public void addFilter(String column, String operator, String value, String type) {
+		SearchFilter filter = new SearchFilter();
+		filter.setColumn(column);
+		filter.setOperator(operator);
+		filter.setValue(value);
+		filter.setType(type);
+		filters.add(filter);
 	}
 
 	public int getOffset() {
