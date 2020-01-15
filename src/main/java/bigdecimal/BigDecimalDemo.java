@@ -1,6 +1,7 @@
 package bigdecimal;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * 使用BigDecimal避免浮点数舍入误差,可用于商业计算.
@@ -71,5 +72,14 @@ public class BigDecimalDemo {
 		
 		//转为int类型
 		System.out.println(b1.intValue());
+		
+		//以下是格式化部分
+		
+		//使用toString()会显示科学计数法, 使用toPlainString()显示原本的数值格式
+		System.out.println(new BigDecimal("0.00000000000000000001").toPlainString());
+		
+		//加逗号分隔并保留2位小数
+		DecimalFormat df = new DecimalFormat("#,##0.00");
+		System.out.println(df.format(new BigDecimal(2232184750L)));
 	}
 }
