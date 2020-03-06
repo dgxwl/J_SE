@@ -101,4 +101,14 @@ public class DateUtil {
 		return sdf.parse(date);
 	}
 
+	/**
+	 * 求两个日期相差天数
+	 * @param date1 第一个日期,小的
+	 * @param date2第二个日期,大的
+	 * @return 相差天数
+	 */
+	public int differentDays(Date date1, Date date2) {
+        return (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+    }
+	
 }
