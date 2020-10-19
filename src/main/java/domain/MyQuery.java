@@ -137,5 +137,15 @@ public class MyQuery {
 		return "MyQuery [orderField=" + orderField + ", orderType=" + orderType + ", limit=" + limit + ", page=" + page
 				+ ", filters=" + filters + "]";
 	}
+	
+	public static String getWhereStr(List<SearchFilter> filters) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("1=1");
+		for (SearchFilter filter : filters) {
+			builder.append(" AND ").append(filter.getColumn()).append(" ")
+					.append(filter.getOperator()).append(" ").append(filter.getValue());
+		}
+		return builder.toString();
+	}
 
 }
