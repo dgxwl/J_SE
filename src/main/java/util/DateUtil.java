@@ -10,10 +10,13 @@ public class DateUtil {
 	}
 
 	public static Date getStartOfDay(Date date) {
+		return getStartOfDay(date, Calendar.getInstance());
+	}
+
+	public static Date getStartOfDay(Date date, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
@@ -23,10 +26,13 @@ public class DateUtil {
 	}
 
 	public static Date getEndOfDay(Date date) {
+		return getEndOfDay(date, Calendar.getInstance());
+	}
+	
+	public static Date getEndOfDay(Date date, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
@@ -36,30 +42,39 @@ public class DateUtil {
 	}
 
 	public static Date add(Date date, int field, int amount) {
+		return add(date, field, amount, Calendar.getInstance());
+	}
+	
+	public static Date add(Date date, int field, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(field, amount);
 		return cal.getTime();
 	}
 
 	public static Date addDays(Date date, int amount) {
+		return addDays(date, amount, Calendar.getInstance());
+	}
+	
+	public static Date addDays(Date date, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.DATE, amount);
 		return cal.getTime();
 	}
 
 	public static Date getStartOfDayAfterAdding(Date date, int amount) {
+		return getStartOfDayAfterAdding(date, amount, Calendar.getInstance());
+	}
+	
+	public static Date getStartOfDayAfterAdding(Date date, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.DATE, amount);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -70,10 +85,13 @@ public class DateUtil {
 	}
 
 	public static Date getEndOfDayAfterAdding(Date date, int amount) {
+		return getEndOfDayAfterAdding(date, amount, Calendar.getInstance());
+	}
+	
+	public static Date getEndOfDayAfterAdding(Date date, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.DATE, amount);
 		cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -84,10 +102,13 @@ public class DateUtil {
 	}
 
 	public static Date getStartOfDayAfterAdding(Date date, int field, int amount) {
+		return getStartOfDayAfterAdding(date, field, amount, Calendar.getInstance());
+	}
+	
+	public static Date getStartOfDayAfterAdding(Date date, int field, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(field, amount);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -98,10 +119,13 @@ public class DateUtil {
 	}
 
 	public static Date getEndOfDayAfterAdding(Date date, int field, int amount) {
+		return getEndOfDayAfterAdding(date, field, amount, Calendar.getInstance());
+	}
+	
+	public static Date getEndOfDayAfterAdding(Date date, int field, int amount, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(field, amount);
 		cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -112,10 +136,13 @@ public class DateUtil {
 	}
 
 	public static Date getStartOfMonth(Date date) {
+		return getStartOfMonth(date, Calendar.getInstance());
+	}
+	
+	public static Date getStartOfMonth(Date date, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -126,10 +153,13 @@ public class DateUtil {
 	}
 
 	public static Date getEndOfMonth(Date date) {
+		return getEndOfMonth(date, Calendar.getInstance());
+	}
+	
+	public static Date getEndOfMonth(Date date, Calendar cal) {
 		if (date == null) {
 			date = new Date();
 		}
-		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.DATE, cal.getMaximum(Calendar.DATE));
 		cal.set(Calendar.HOUR_OF_DAY, 23);
