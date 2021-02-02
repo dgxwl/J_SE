@@ -126,7 +126,7 @@ public class StringUtils {
     	StringBuilder builder = new StringBuilder(str);
     	char first = builder.charAt(0);
     	if (first >= 'A' && first <= 'Z') {
-    		builder.replace(0, 1, String.valueOf(first += 32));
+    		builder.replace(0, 1, String.valueOf(first + 32));
     	}
     	for (int i = builder.length() - 1; i > 0; i--) {
 			char ch = builder.charAt(i);
