@@ -2,11 +2,15 @@ package util;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import mybatis.User;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 输出xml和解析xml的工具类
  * 
@@ -15,17 +19,41 @@ import java.io.OutputStream;
  * @date :2012-9-29 上午9:51:28
  * @Description:TODO
  */
-public class XStreamUtil {
+public class XmlUtil {
+
+	private XmlUtil(){}
+
+	private static volatile Map<Class<?>, XStream> cache = new ConcurrentHashMap<>();
+
+	/*
+	 * The XStream instance is thread-safe. That is, once the XStream instance has been created and configured,
+	 * it may be shared across multiple threads allowing objects to be serialized/deserialized concurrently.
+	 * https://www.cnblogs.com/qhj348770376/p/9346776.html
+	 */
+	private static XStream getXStream(Class<?> cls) {
+		XStream xStream = cache.get(cls);
+		if (xStream == null) {
+			synchronized (cls) {
+				xStream = cache.get(cls);
+				if (xStream == null) {
+					xStream = new XStream(new DomDriver("utf-8"));
+					XStream.setupDefaultSecurity(xStream);
+					xStream.allowTypes(new Class[]{cls});
+					xStream.processAnnotations(cls);xStream.ignoreUnknownElements();
+					cache.put(cls, xStream);
+				}
+			}
+		}
+		return xStream;
+	}
+
 	/**
 	 * java 转换成xml
 	 * @param obj 对象实例
 	 * @return String xml字符串
 	 */
 	public static String toXml(Object obj) {
-		XStream xstream = new XStream(new DomDriver("utf-8"));
-		XStream.setupDefaultSecurity(xstream);
-		xstream.allowTypes(new Class[]{obj.getClass()});
-		xstream.processAnnotations(obj.getClass());
+		XStream xstream = getXStream(obj.getClass());
 		return xstream.toXML(obj);
 	}
 
@@ -37,10 +65,7 @@ public class XStreamUtil {
 	 * 调用的方法实例：PersonBean person = XmlUtil.toBean(xmlStr, PersonBean.class);
 	 */
 	public static <T> T toBean(String xmlStr, Class<T> cls) {
-		XStream xstream = new XStream(new DomDriver("utf-8"));
-		XStream.setupDefaultSecurity(xstream);
-		xstream.allowTypes(new Class[]{cls});
-		xstream.processAnnotations(cls);
+		XStream xstream = getXStream(cls);
 		@SuppressWarnings("unchecked")
 		T obj = (T) xstream.fromXML(xmlStr);
 		return obj;
@@ -66,8 +91,6 @@ public class XStreamUtil {
 			out.write(strXml.getBytes());
 			out.flush();
 			return true;
-		} catch (Exception e) {
-			throw e;
 		}
 	}
 
